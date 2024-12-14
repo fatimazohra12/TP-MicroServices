@@ -10,7 +10,7 @@ import {
     updateClient,
     updateVoiture
 } from "../services/apiService";
-import { Modal, Button, Form, Table, Card, Row, Col, Container } from "react-bootstrap";
+import { Modal, Button, Form, Card, Row, Col, Container } from "react-bootstrap";
 
 function Dashboard() {
     const [clients, setClients] = useState([]);
@@ -120,151 +120,125 @@ function Dashboard() {
 
     return (
         <Container className="mt-5">
-
-            {/* Row for Clients and Voitures */}
+            {/* Clients Section */}
             <Row className="mb-4">
-                {/* Clients Section */}
-                <Col md={6}>
-                    <Card>
-                        <Card.Header className="bg-dark text-white">
-                            <h4>Clients</h4>
-                        </Card.Header>
-                        <Card.Body>
-                            <Table striped bordered hover>
-                                <thead>
-                                    <tr>
-                                        <th>Nom</th>
-                                        <th>Age</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {clients.map((client) => (
-                                        <tr key={client.id}>
-                                            <td>{client.nom}</td>
-                                            <td>{client.age}</td>
-                                            <td>
-                                                <Button
-                                                    variant="dark"
-                                                    size="sm"
-                                                    className="me-2"
-                                                    onClick={() => openEditClientModal(client)}
-                                                >
-                                                    Modifier
-                                                </Button>
-                                                <Button
-                                                    variant="dark"
-                                                    size="sm"
-                                                    onClick={() => handleDeleteClient(client.id)}
-                                                >
-                                                    Supprimer
-                                                </Button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
-                            <Button
-                                variant="dark"
-                                onClick={() => {
-                                    setShowClientModal(true);
-                                    setIsEditingClient(false);
-                                    setNewClient({ nom: "", age: "" });
-                                }}
-                            >
-                                Ajouter Client
-                            </Button>
-                        </Card.Body>
-                    </Card>
+                <Col>
+                    <h2 className="text-center mb-4">Clients</h2>
+                    {clients.map((client) => (
+                        <Card key={client.id} className="mb-3 shadow-sm">
+                            <Card.Body>
+                                <Card.Title>{client.nom}</Card.Title>
+                                <Card.Text>Age: {client.age}</Card.Text>
+                                <Button
+                                    variant="primary"
+                                    size="sm"
+                                    className="me-2"
+                                    onClick={() => openEditClientModal(client)}
+                                >
+                                    Modifier
+                                </Button>
+                                <Button
+                                    variant="danger"
+                                    size="sm"
+                                    onClick={() => handleDeleteClient(client.id)}
+                                >
+                                    Supprimer
+                                </Button>
+                            </Card.Body>
+                        </Card>
+                    ))}
+                    <Button
+                        variant="success"
+                        className="w-100"
+                        onClick={() => {
+                            setShowClientModal(true);
+                            setIsEditingClient(false);
+                            setNewClient({ nom: "", age: "" });
+                        }}
+                    >
+                        Ajouter Client
+                    </Button>
                 </Col>
+            </Row>
 
-                {/* Voitures Section */}
-                <Col md={6}>
-                    <Card>
-                        <Card.Header className="bg-dark text-white">
-                            <h4>Voitures</h4>
-                        </Card.Header>
-                        <Card.Body>
-                            <Table striped bordered hover>
-                                <thead>
-                                    <tr>
-                                        <th>Marque</th>
-                                        <th>Matricule</th>
-                                        <th>Model</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {voitures.map((voiture) => (
-                                        <tr key={voiture.id}>
-                                            <td>{voiture.marque}</td>
-                                            <td>{voiture.matricule}</td>
-                                            <td>{voiture.model}</td>
-                                            <td>
-                                                <Button
-                                                    variant="dark"
-                                                    size="sm"
-                                                    className="me-2"
-                                                    onClick={() => openEditVoitureModal(voiture)}
-                                                >
-                                                    Modifier
-                                                </Button>
-                                                <Button
-                                                    variant="dark"
-                                                    size="sm"
-                                                    onClick={() => handleDeleteVoiture(voiture.id)}
-                                                >
-                                                    Supprimer
-                                                </Button>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </Table>
-                            <Button
-                                variant="dark"
-                                onClick={() => {
-                                    setShowVoitureModal(true);
-                                    setIsEditingVoiture(false);
-                                    setNewVoiture({ marque: "", matricule: "", model: "" });
-                                }}
-                            >
-                                Ajouter Voiture
-                            </Button>
-                        </Card.Body>
-                    </Card>
+            {/* Voitures Section */}
+            <Row className="mb-4">
+                <Col>
+                    <h2 className="text-center mb-4">Voitures</h2>
+                    {voitures.map((voiture) => (
+                        <Card key={voiture.id} className="mb-3 shadow-sm">
+                            <Card.Body>
+                                <Card.Title>{voiture.marque}</Card.Title>
+                                <Card.Text>
+                                    Matricule: {voiture.matricule}
+                                    <br />
+                                    Modèle: {voiture.model}
+                                </Card.Text>
+                                <Button
+                                    variant="primary"
+                                    size="sm"
+                                    className="me-2"
+                                    onClick={() => openEditVoitureModal(voiture)}
+                                >
+                                    Modifier
+                                </Button>
+                                <Button
+                                    variant="danger"
+                                    size="sm"
+                                    onClick={() => handleDeleteVoiture(voiture.id)}
+                                >
+                                    Supprimer
+                                </Button>
+                            </Card.Body>
+                        </Card>
+                    ))}
+                    <Button
+                        variant="success"
+                        className="w-100"
+                        onClick={() => {
+                            setShowVoitureModal(true);
+                            setIsEditingVoiture(false);
+                            setNewVoiture({ marque: "", matricule: "", model: "" });
+                        }}
+                    >
+                        Ajouter Voiture
+                    </Button>
                 </Col>
             </Row>
 
             {/* Search Section */}
-            <Card>
-                <Card.Header className="bg-dark text-white">
-                    <h4>chercher voitures par nom de client</h4>
-                </Card.Header>
-                <Card.Body>
-                    <Form.Control
-                        type="text"
-                        placeholder=" le nom de client"
-                        value={searchClientName}
-                        onChange={(e) => setSearchClientName(e.target.value)}
-                        className="mb-3"
-                    />
-                    <Button
-                        variant="dark"
-                        onClick={handleSearchVoituresByClientName}
-                        className="mb-3"
-                    >
-                        Chercher
-                    </Button>
-                    <ul>
-                        {filteredVoitures.map((voiture) => (
-                            <li key={voiture.id}>
-                                {voiture.marque} - {voiture.model} ({voiture.matricule})
-                            </li>
-                        ))}
-                    </ul>
-                </Card.Body>
-            </Card>
+            <Row className="mb-4">
+                <Col>
+                    <Card className="shadow-sm">
+                        <Card.Body>
+                            <Card.Title>Recherche de Voitures</Card.Title>
+                            <Form.Control
+                                type="text"
+                                placeholder="Rechercher par nom de client"
+                                value={searchClientName}
+                                onChange={(e) => setSearchClientName(e.target.value)}
+                                className="mb-3"
+                            />
+                            <Button
+                                variant="dark"
+                                className="w-100"
+                                onClick={handleSearchVoituresByClientName}
+                            >
+                                Chercher
+                            </Button>
+                            {filteredVoitures.length > 0 && (
+                                <ul className="mt-3">
+                                    {filteredVoitures.map((voiture) => (
+                                        <li key={voiture.id}>
+                                            {voiture.marque} - {voiture.model} ({voiture.matricule})
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
 
             {/* Client Modal */}
             <Modal show={showClientModal} onHide={() => setShowClientModal(false)}>
@@ -277,7 +251,7 @@ function Dashboard() {
                             <Form.Label>Nom</Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder=" nom"
+                                placeholder="Nom"
                                 value={newClient.nom}
                                 onChange={(e) =>
                                     setNewClient({ ...newClient, nom: e.target.value })
@@ -288,7 +262,7 @@ function Dashboard() {
                             <Form.Label>Age</Form.Label>
                             <Form.Control
                                 type="number"
-                                placeholder=" age"
+                                placeholder="Age"
                                 value={newClient.age}
                                 onChange={(e) =>
                                     setNewClient({ ...newClient, age: e.target.value })
@@ -298,11 +272,11 @@ function Dashboard() {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="dark" onClick={() => setShowClientModal(false)}>
-                        Quitter
+                    <Button variant="secondary" onClick={() => setShowClientModal(false)}>
+                        Annuler
                     </Button>
-                    <Button variant="dark" onClick={handleAddOrUpdateClient}>
-                        {isEditingClient ? "Save Changes" : "Ajouter Client"}
+                    <Button variant="primary" onClick={handleAddOrUpdateClient}>
+                        {isEditingClient ? "Enregistrer" : "Ajouter"}
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -318,7 +292,7 @@ function Dashboard() {
                             <Form.Label>Marque</Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder=" marque"
+                                placeholder="Marque"
                                 value={newVoiture.marque}
                                 onChange={(e) =>
                                     setNewVoiture({ ...newVoiture, marque: e.target.value })
@@ -329,7 +303,7 @@ function Dashboard() {
                             <Form.Label>Matricule</Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder=" matricule"
+                                placeholder="Matricule"
                                 value={newVoiture.matricule}
                                 onChange={(e) =>
                                     setNewVoiture({ ...newVoiture, matricule: e.target.value })
@@ -337,10 +311,10 @@ function Dashboard() {
                             />
                         </Form.Group>
                         <Form.Group className="mt-2">
-                            <Form.Label>Model</Form.Label>
+                            <Form.Label>Modèle</Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder=" model"
+                                placeholder="Modèle"
                                 value={newVoiture.model}
                                 onChange={(e) =>
                                     setNewVoiture({ ...newVoiture, model: e.target.value })
@@ -348,12 +322,12 @@ function Dashboard() {
                             />
                         </Form.Group>
                         <Form.Group className="mt-3">
-                            <Form.Label>Selectioner Client</Form.Label>
+                            <Form.Label>Client</Form.Label>
                             <Form.Select
                                 onChange={(e) => setSelectedClientId(e.target.value)}
                                 value={selectedClientId}
                             >
-                                <option value="">Selectioner Client</option>
+                                <option value="">Sélectionner un client</option>
                                 {clients.map((client) => (
                                     <option key={client.id} value={client.id}>
                                         {client.nom}
@@ -364,11 +338,11 @@ function Dashboard() {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="dark" onClick={() => setShowVoitureModal(false)}>
-                        Close
+                    <Button variant="secondary" onClick={() => setShowVoitureModal(false)}>
+                        Annuler
                     </Button>
-                    <Button variant="dark" onClick={handleAddOrUpdateVoiture}>
-                        {isEditingVoiture ? "Save Changes" : "Ajouter Voiture"}
+                    <Button variant="primary" onClick={handleAddOrUpdateVoiture}>
+                        {isEditingVoiture ? "Enregistrer" : "Ajouter"}
                     </Button>
                 </Modal.Footer>
             </Modal>
